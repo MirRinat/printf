@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-char	*ft_itoa_2(unsigned long long n)
+char					*ft_itoa_2(unsigned long long n)
 {
-	char			*chs;
-	int				size;
+	char				*chs;
+	int					size;
 	unsigned long long	y;
 
 	size = 2;

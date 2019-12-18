@@ -14,19 +14,18 @@ C = clang
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror -02
+FLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft
 
-LIBFT2 = obj/libft
-
 DIR_S = srcs
 
-DIR_O = obj
+DIR_O = objs
 
-HEADER = ft_printf.h
+HEADER = includes
 
-SOURCES = main.c float.c
+SOURCES = float.c number.c parser.c display.c string.c  base_numbers.c define.c ft_printf.c define_nb.c display_nb.c
+
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
@@ -34,36 +33,25 @@ OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		@make -C $(LIBFT)
+		@make -C $(LIBFT) fclean && make -C $(LIBFT)
 		@cp libft/libft.a ./$(NAME)
 		@ar rc $(NAME) $(OBJS)
 		@ranlib $(NAME)
+		@echo "OK"
 
 $(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
-		@mkdir -p obj
-		@@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
-
-test:
-		@make all misc/main.c
-
-
-norme:
-		norminette ./libft/
-		@echo
-		norminette ./$(HEADER)/
-		@echo
-		norminette ./$(DIR_S)/
+		@mkdir -p $(DIR_O)
+		@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
 
 clean:
 		@rm -f $(OBJS)
-		@make clean -C $(LIBFT2)
+		@rm -rf $(DIR_O)
 		@make clean -C $(LIBFT)
 
 fclean: clean
 		@rm -f $(NAME)
 		@make fclean -C $(LIBFT)
-		@make fclean -C $(LIBFT2)
 
 re: fclean all
 
-.PHONY: fclean re norme all clean
+.PHONY: fclean re all clean
