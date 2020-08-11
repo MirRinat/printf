@@ -6,7 +6,7 @@
 /*   By: bglinda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:14:19 by bglinda           #+#    #+#             */
-/*   Updated: 2019/12/18 14:58:21 by bglinda          ###   ########.fr       */
+/*   Updated: 2020/08/11 10:21:48 by bglinda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ int				print_f(va_list args, t_flags *flags)
 	int			size;
 	long double n;
 
-	if (flags->length_type == 7)
+	if (flags->length_type == 6)
 		n = (long double)va_arg(args, long double);
 	else
 		n = va_arg(args, double);
 	if (flags->precision <= 0)
-		flags->precision = 7;
+		flags->precision = 6;
 	size = float_to_str(n, &nb, flags->precision + 1);
 	display(nb, size, flags);
 	free(nb);
